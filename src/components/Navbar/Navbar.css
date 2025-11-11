@@ -1,0 +1,9 @@
+.menu a.active {
+    text-decoration: underline;
+    /* background-color: #e3e6ea; 
+    color: #1e40af; */
+}
+.menu :hover{
+    background-color: #e8effc;
+    color: #2b62e3;
+}
