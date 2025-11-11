@@ -8,6 +8,7 @@ import TransactionDetailsPage from '../pages/Transactions/TransactionDetailsPage
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
 import ReportsPage from '../pages/Reports/ReportsPage';
+import PrivateRoute from './PrivateRoute';
 
 export const router = createBrowserRouter([
     {
@@ -20,11 +21,16 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/add-transaction',
-                element: <AddTransactionPage></AddTransactionPage>
+                element: <PrivateRoute>
+                    <AddTransactionPage></AddTransactionPage>
+                </PrivateRoute>
             },
             {
                 path: '/my-transaction',
-                element: <MyTransactionPage></MyTransactionPage>
+                element: <PrivateRoute>
+                    <MyTransactionPage></MyTransactionPage>
+                </PrivateRoute>,
+                loader: () => fetch('http://localhost:4000/finease')
             },
             {
                 path: '/transaction-details',
@@ -40,7 +46,9 @@ export const router = createBrowserRouter([
             },
             {
                 path:'/reports',
-                element: <ReportsPage></ReportsPage>
+                element: <PrivateRoute>
+                    <ReportsPage></ReportsPage>
+                </PrivateRoute>
             }
         ]
     }
