@@ -9,6 +9,8 @@ import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
 import ReportsPage from '../pages/Reports/ReportsPage';
 import PrivateRoute from './PrivateRoute';
+import UpdateTransaction from '../pages/Transactions/UpdateTransaction';
+import ProfilePage from '../pages/Profile/ProfilePage';
 
 export const router = createBrowserRouter([
     {
@@ -33,8 +35,18 @@ export const router = createBrowserRouter([
                 loader: () => fetch('http://localhost:4000/finease')
             },
             {
-                path: '/transaction-details',
-                element: <TransactionDetailsPage></TransactionDetailsPage>
+                path: '/transaction-details/:id',
+                element: <PrivateRoute>
+                    <TransactionDetailsPage></TransactionDetailsPage>
+                </PrivateRoute>,
+                loader: ({params}) => fetch(`http://localhost:4000/finease/${params.id}`)
+            },
+            {
+                path: '/update-transaction/:id',
+                element: <PrivateRoute>
+                    <UpdateTransaction></UpdateTransaction>
+                </PrivateRoute>,
+                loader: ({params}) => fetch(`http://localhost:4000/finease/${params.id}`)
             },
             {
                 path: '/auth/login',
@@ -43,6 +55,10 @@ export const router = createBrowserRouter([
             {
                 path: '/auth/register',
                 element: <Register></Register>
+            },
+            {
+                path: '/profile',
+                element: <ProfilePage></ProfilePage>
             },
             {
                 path:'/reports',
