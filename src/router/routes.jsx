@@ -12,6 +12,7 @@ import PrivateRoute from './PrivateRoute';
 import UpdateTransaction from '../pages/Transactions/UpdateTransaction';
 import ProfilePage from '../pages/Profile/ProfilePage';
 import UpdateProfile from '../pages/UpdateProfile/UpdateProfile';
+import NotFoundPage from '../pages/NotFound/NotFoundPage';
 
 export const router = createBrowserRouter([
     {
@@ -74,6 +75,10 @@ export const router = createBrowserRouter([
                 element: <PrivateRoute>
                     <ReportsPage></ReportsPage>
                 </PrivateRoute>
+            },
+            {
+                path: '*',
+                element: <NotFoundPage></NotFoundPage>
             }
         ]
     }

@@ -1,4 +1,3 @@
-import React, { use } from "react";
 import { auth } from "../../firebase/firebase.config";
 import { toast } from "react-toastify";
 
@@ -28,7 +27,7 @@ const AddTransactionPage = () => {
       .then((data) => {
         console.log(data);
         toast.success("Transaction history added successfully!");
-        event.target.reset()
+        event.target.reset();
       })
       .catch((error) => {
         console.log(error);
