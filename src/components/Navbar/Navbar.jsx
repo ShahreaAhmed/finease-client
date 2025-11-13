@@ -81,7 +81,7 @@ const Navbar = () => {
               </li>
 
               <input
-           onChange={(e)=> handleTheme(e.target.checked)}
+          //  onChange={(e)=> handleTheme(e.target.checked)}
            type="checkbox"
            defaultChecked={localStorage.getItem('theme') === "dark"}
            className="toggle"/>

@@ -5,13 +5,13 @@ import { AuthContext } from "../../context/AuthContext";
 // import MyContainer from "../components/MyContainer";
 
 const UpdateProfile = () => {
-  const { user, updateProfileFunc, setUser } = useContext(AuthContext);
+  const { user, updateUserProfile, setUser } = useContext(AuthContext);
   const [name, setName] = useState(user?.displayName || "");
   const [photo, setPhoto] = useState(user?.photoURL || "");
   const navigate = useNavigate();
 
   const handleUpdate = () => {
-    updateProfileFunc(name, photo)
+    updateUserProfile(name, photo)
       .then(() => {
         setUser({
           ...user,
@@ -19,7 +19,7 @@ const UpdateProfile = () => {
           photoURL: photo,
         });
         toast.success("Profile updated successfully!");
-        navigate("/my-profile-page"); 
+        navigate("/profile"); 
       })
       .catch((error) => {
         toast.error(error.message);
