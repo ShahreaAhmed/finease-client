@@ -27,7 +27,7 @@ const Register = () => {
           render: "User created successfully!",
           type: "success",
           isLoading: false,
-          autoClose: 1500,
+          autoClose: 3000,
         });
         navigate('/')
             
@@ -38,7 +38,7 @@ const Register = () => {
           render: error.message,
           type: "error",
           isLoading: false,
-          autoClose: 2000,
+          autoClose: 3000,
         });
         });
     };
@@ -51,14 +51,19 @@ const Register = () => {
           render: "User created successfully!",
           type: "success",
           isLoading: false,
-          autoClose: 1500,
+          autoClose: 3000,
         });
             console.log(result.user);
             navigate('/')
         })
         .catch((error) => {
             console.log(error);
-            toast.error(error.message, {id: "create-user"});
+            toast.update(toastId, {
+          render: error.message,
+          type: "error",
+          isLoading: false,
+          autoClose: 3000,
+        });
         });
     }
   return (
