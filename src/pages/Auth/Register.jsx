@@ -6,35 +6,53 @@ import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 
 const Register = () => {
-    const {createUser, signInWithGoogle} = use(AuthContext);
+    const {createUser, updateUserProfile, signInWithGoogle} = use(AuthContext);
     const navigate = useNavigate()
 
     const handleRegister = (event) => {
         event.preventDefault();
         const displayName = event.target.displayName.value;
         const email = event.target.email.value;
-        const photoURL = event.target.displayName.value;
+        const photoURL = event.target.photoURL.value;
         const password = event.target.password.value;
         console.log(displayName, email, photoURL, password)
 
-        toast.loading("Creating user...", {id: "create-user"})
+        const toastId = toast.loading("Creating user...")
 
         createUser(email, password)
         .then((result) => {
             console.log(result.user);
-            toast.success("User created successfully!", {id: "create-user"});
+            updateUserProfile(displayName, photoURL)
+            toast.update(toastId, {
+          render: "User created successfully!",
+          type: "success",
+          isLoading: false,
+          autoClose: 1500,
+        });
+        navigate('/')
+            
         })
         .catch((error) => {
             console.log(error);
-            toast.error(error.message, {id: "create-user"});
+            toast.update(toastId, {
+          render: error.message,
+          type: "error",
+          isLoading: false,
+          autoClose: 2000,
+        });
         });
     };
 
     const handleGoogleSignIn = () => {
-        toast.loading("Creating user...", {id: "create-user"});
+        const toastId = toast.loading("Creating user...");
         signInWithGoogle()
         .then((result) => {
-            toast.success("User created successfully!", {id: "create-user"});
+         toast.update(toastId, {
+          render: "User created successfully!",
+          type: "success",
+          isLoading: false,
+          autoClose: 1500,
+        });
             console.log(result.user);
             navigate('/')
         })
