@@ -17,6 +17,16 @@ const Register = () => {
         const password = event.target.password.value;
         console.log(displayName, email, photoURL, password)
 
+
+
+        const regExp = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    if (!regExp.test(password)) {
+      toast.error(
+        "⚠️ Password must be at least 6 characters long and include at least one uppercase letter and one lowercase letter."
+      );
+      return;
+    }
+
         const toastId = toast.loading("Creating user...")
 
         createUser(email, password)
