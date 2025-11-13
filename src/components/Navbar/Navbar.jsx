@@ -1,12 +1,24 @@
-import React, { use } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import appLogo from '../../assets/appLogo.png'
-import { FaUser } from "react-icons/fa6";
 import './Navbar.css'
 import { AuthContext } from '../../context/AuthContext';
 
 const Navbar = () => {
     const {user, signOutUser} = use(AuthContext);
+
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || "light")
+
+  useEffect(() => {
+    const html = document.querySelector('html')
+     html.setAttribute("data-theme", theme)
+     localStorage.setItem("theme", theme)
+  }, [theme])
+
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark": "light")
+  }
 
     const links = <>
       <NavLink to='/'>Home</NavLink>
@@ -68,31 +80,13 @@ const Navbar = () => {
                 </Link>
               </li>
 
-              <li>
-                <Link to={"/my-models"}>
-                  My Models
-                </Link>
-              </li>
-
-              <li >
-                <Link to={"/my-downloads"}>
-                 My Downloads
-                </Link>
-              </li>
-
-              <input
-          //  onChange={(e)=> handleTheme(e.target.checked)}
+          
+             <input
+           onChange={(e) => handleTheme(e.target.checked)}
            type="checkbox"
            defaultChecked={localStorage.getItem('theme') === "dark"}
            className="toggle"/>
-              
-              <li>
-                <a>
-                  {" "}
-                  {/* <FaGear />  */}
-                  Settings
-                </a>
-              </li>
+
               <li>
                 <button
                   onClick={signOutUser}
@@ -141,38 +135,6 @@ const Navbar = () => {
     
         )}
   
-
-    {/* <Link to='/auth/login'>
-    <button
-        className="
-            px-5 py-2 text-sm font-semibold rounded-lg
-            bg-gradient-to-r from-blue-500 to-purple-600
-            text-white shadow-lg shadow-blue-500/50
-            transition duration-300 ease-in-out
-            hover:from-blue-600 hover:to-purple-700
-            hover:shadow-xl hover:shadow-blue-500/60
-            focus:outline-none focus:ring-4 focus:ring-blue-300
-            transform hover:scale-105
-        "
-    >
-        Login
-    </button></Link>
-    <Link to='/auth/register'>
-    <button
-        className="
-            px-5 py-2 ml-2 text-sm font-semibold rounded-lg
-            text-purple-600 border border-purple-600
-            bg-white shadow-md
-            transition duration-300 ease-in-out
-            hover:bg-purple-50 hover:text-purple-700
-            hover:border-purple-700
-            hover:shadow-xl hover:shadow-purple-200/50
-            focus:outline-none focus:ring-4 focus:ring-purple-200
-            transform hover:scale-105
-        "
-    >
-        Register
-    </button></Link> */}
   </div>
 </div>
     );
